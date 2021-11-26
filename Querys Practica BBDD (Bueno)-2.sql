@@ -2,7 +2,7 @@
 
 SELECT *
 FROM dragon
-WHERE nombre_d="Griffin" OR nombre_d="Ocho Cabezas";
+WHERE nombre_d = "Griffin" OR nombre_d = "Ocho Cabezas";
 
 -- b) Obtener los guerreros que haya comprado dagas en la “Tienda de Rolla” y forjado espadas en la “Forja del enano risueño"
 
@@ -11,7 +11,7 @@ FROM guerrero INNER JOIN espada ON guerrero.id_g = espada.id_g
 			  INNER JOIN guerrero_crea_en_forja ON guerrero.id_g=guerrero_crea_en_forja.id_g
 			  INNER JOIN personaje ON personaje.id_g=guerrero.id_g
 			  INNER JOIN personaje_compra_daga ON personaje.nombre_p = personaje_compra_daga.nombre_p
-			  INNER JOIN forja ON forja.nombre_e=espada.nombre_e
+			  INNER JOIN forja ON forja.nombre_f=espada.nombre_f
 			  INNER JOIN forja_se_encuentra_ciudad ON forja_se_encuentra_ciudad.nombre_f=forja.nombre_f
 			  INNER JOIN ciudad ON ciudad.nombre_c=forja_se_encuentra_ciudad.nombre_c
 			  INNER JOIN tienda ON tienda.nombre_c=ciudad.nombre_c
@@ -124,7 +124,7 @@ HAVING COUNT(*) >= ALL(SELECT COUNT(*)
 -- j) Obtener el hacha con menor peso y el dueño de la forja donde se hizo
 
 SELECT hacha.nombre_h,forja.id_npc,hacha.peso
-FROM hacha INNER JOIN forja ON hacha.nombre_h=forja.nombre_h
+FROM hacha INNER JOIN forja ON hacha.nombre_f=forja.nombre_f
 WHERE hacha.peso <= ALL (SELECT peso
 						 FROM hacha);
 
@@ -204,53 +204,41 @@ FROM personaje;
 
 -- a) Define un trigger para que cuando un jugador haya matado al menos 3 dragones, su vida aumente en 5.
 
+DROP TRIGGER IF EXISTS upd_life;
+
+SELECT COUNT(mago.id_m)
+			FROM mago INNER JOIN mago_pertenece_escuadron ON mago_pertenece_escuadron.id_m = mago.id_m
+			INNER JOIN escuadron ON escuadron.id_e = mago_pertenece_escuadron.id_e
+			INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_e = escuadron.id_e
+			WHERE escuadron_vence_dragon.fecha BETWEEN mago_pertenece_escuadron.fecha_inicio AND mago_pertenece_escuadron.fecha_fin AND escuadron.id_e = 1
+			HAVING COUNT(mago.id_m) >= 3;
+																
+
+
 DELIMITER $$
 CREATE TRIGGER upd_life AFTER INSERT ON escuadron_vence_dragon
 FOR EACH ROW
 BEGIN 
-DECLARE numero_dragones_mago INTEGER;
-DECLARE numero_dragones_guerrero INTEGER;
-DECLARE numero_dragones_tanque INTEGER;
-SET numero_dragones_mago = (SELECT COUNT(nombre_d) as dragones_derrotados
-							FROM mago_pertenece_escuadron INNER JOIN personaje ON personaje.id_m = mago_pertenece_escuadron.id_m
-                            INNER JOIN escuadron ON escuadron.id_e=mago_pertenece_escuadron.id_e
-							INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_e = escuadron.id_e
-							INNER JOIN jugador ON personaje.mail = jugador.mail
-                            WHERE escuadron_vence_dragon.fecha BETWEEN mago_pertenece_escuadron.fecha_inicio AND mago_pertenece_escuadron.fecha_fin
-                            GROUP BY jugador.nickname);
-SET numero_dragones_guerrero = (SELECT COUNT(nombre_d) as dragones_derrotados
-							FROM guerrero_pertenece_escuadron INNER JOIN personaje ON personaje.id_g = guerrero_pertenece_escuadron.id_g
-                            INNER JOIN escuadron ON escuadron.id_e=guerrero_pertenece_escuadron.id_e
-							INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_e = escuadron.id_e
-							INNER JOIN jugador ON personaje.mail = jugador.mail
-                            WHERE escuadron_vence_dragon.fecha BETWEEN guerrero_pertenece_escuadron.fecha_inicio AND guerrero_pertenece_escuadron.fecha_fin
-                            GROUP BY jugador.nickname);
-SET numero_dragones_tanque = (SELECT COUNT(nombre_d) as dragones_derrotados
-							FROM tanque_pertenece_escuadron INNER JOIN personaje ON personaje.id_t = tanque_pertenece_escuadron.id_t
-                            INNER JOIN escuadron ON escuadron.id_e=tanque_pertenece_escuadron.id_e
-							INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_e = escuadron.id_e
-							INNER JOIN jugador ON personaje.mail = jugador.mail
-                            WHERE escuadron_vence_dragon.fecha BETWEEN tanque_pertenece_escuadron.fecha_inicio AND tanque_pertenece_escuadron.fecha_fin
-                            GROUP BY jugador.nickname);
-IF numero_dragones_mago >= 3   THEN
-UPDATE mago INNER JOIN mago_pertenece_escuadron ON mago.id_m = mago_pertenece_escuadron.id_m
-	SET  mago.vida = mago.vida + 5
-    WHERE mago.id_m = mago_pertenece_escuadron.id_m;
-END IF;
-IF numero_dragones_guerrero >= 3 THEN
-UPDATE guerrero INNER JOIN guerrero_pertenece_escuadron ON guerrero.id_g = guerrero_pertenece_escuadron.id_g
-	SET  guerrero.vida = guerrero.vida + 5
-	WHERE guerrero.id_g = guerrero_pertenece_escuadron.id_g;
-END IF;
-IF numero_dragones_tanque >= 3 THEN
-UPDATE tanque INNER JOIN tanque_pertenece_escuadron ON tanque.id_t = tanque_pertenece_escuadron.id_t
-	SET  tanque.vida = tanque.vida + 5
-	WHERE tanque.id_t = tanque_pertenece_escuadron.id_t;
-END IF;
+UPDATE mago 
+SET mago.vida = mago.vida + 1000
+WHERE (SELECT COUNT(mago.id_m)
+			FROM mago
+			INNER JOIN mago_pertenece_escuadron ON mago_pertenece_escuadron.id_m = mago.id_m
+			INNER JOIN escuadron ON escuadron.id_e = mago_pertenece_escuadron.id_e
+			INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_e = NEW.id_e
+			WHERE escuadron_vence_dragon.fecha BETWEEN mago_pertenece_escuadron.fecha_inicio AND mago_pertenece_escuadron.fecha_fin
+			HAVING COUNT(mago.id_m) >= 3);
 END $$
 DELIMITER ;
 
-DROP TRIGGER IF EXISTS upd_life;
+INSERT INTO DragonesyCavernas.escuadron_vence_dragon VALUES
+('Griffin',1,'2021-08-26');
+
+
+SELECT *
+FROM mago;
+
+
 
 -- b) Define un trigger para impedir que un escuadron mate un dragon que no haya sido desbloqueado por alguno de sus integrantes.
 
@@ -260,13 +248,26 @@ DELIMITER $$
 CREATE TRIGGER escuadron_mata_dragon BEFORE INSERT ON escuadron_vence_dragon
 FOR EACH ROW
 BEGIN
-DECLARE dragon VARCHAR(30) DEFAULT NEW.nombre_d;
 DECLARE id_escuadron INTEGER DEFAULT NEW.id_e;
 
 IF NOT EXISTS (SELECT dragon.nombre_d
 				FROM escuadron_vence_dragon
-                INNER JOIN dragon ON dragon.nombre_d = escuadron_vence_dragon.nombre_d
-                WHERE dragon.nombre_d_desbloqueado = dragon AND escuadron_vence_dragon.id_e = id_escuadron)
+						INNER JOIN dragon ON dragon.nombre_d = escuadron_vence_dragon.nombre_d
+						INNER JOIN escuadron ON escuadron.id_e = escuadron_vence_dragon.id_e
+                        INNER JOIN mago_pertenece_escuadron ON mago_pertenece_escuadron.id_e = escuadron.id_e
+                WHERE dragon.nombre_d_desbloqueado = NEW.nombre_d AND escuadron_vence_dragon.id_e = id_escuadron) 
+		AND NOT EXISTS(SELECT dragon.nombre_d
+						FROM escuadron_vence_dragon
+							INNER JOIN dragon ON dragon.nombre_d = escuadron_vence_dragon.nombre_d
+							INNER JOIN escuadron ON escuadron.id_e = escuadron_vence_dragon.id_e
+							INNER JOIN guerrero_pertenece_escuadron ON guerrero_pertenece_escuadron.id_e = escuadron.id_e
+                WHERE dragon.nombre_d_desbloqueado = NEW.nombre_d AND escuadron_vence_dragon.id_e = id_escuadron) 
+		AND NOT EXISTS(SELECT dragon.nombre_d
+						FROM escuadron_vence_dragon
+							INNER JOIN dragon ON dragon.nombre_d = escuadron_vence_dragon.nombre_d
+							INNER JOIN escuadron ON escuadron.id_e = escuadron_vence_dragon.id_e
+							INNER JOIN tanque_pertenece_escuadron ON tanque_pertenece_escuadron.id_e = escuadron.id_e
+                WHERE dragon.nombre_d_desbloqueado = NEW.nombre_d AND escuadron_vence_dragon.id_e = id_escuadron) 
 	THEN 
 	SIGNAL SQLSTATE '02010'
     SET MESSAGE_TEXT = 'ERROR, alguno de los integrantes del escuadron no desbloqueo al dragon.';

@@ -27,7 +27,7 @@ CREATE TABLE zona (
     PRIMARY KEY (id_zona)
 );
 
-/*Ciudad (Nombre,ID_zona)*/
+/*Ciudad (Nombre_c,ID_zona)*/
 
 CREATE TABLE ciudad (
     nombre_c VARCHAR(30) UNIQUE NOT NULL,
@@ -49,9 +49,9 @@ CREATE TABLE tienda (
     CONSTRAINT FOREIGN KEY (nombre_c)
         REFERENCES ciudad (nombre_c)
         ON DELETE CASCADE ON UPDATE CASCADE
-);
+); 
 
-/*Espectro (CodME,vida, oro_soltado)*/
+/*Espectro (Cod_ME,vida, oro_soltado)*/
 
 CREATE TABLE espectro (
     cod_me VARCHAR(30) UNIQUE NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE trol (
     PRIMARY KEY (cod_mt)
 );
 
-/*Goblin (CodG_M,vida, oro_soltado)*/
+/*Goblin (Cod_mg,vida, oro_soltado)*/
 
 CREATE TABLE goblin (
     cod_mg VARCHAR(30) UNIQUE NOT NULL,
@@ -93,7 +93,7 @@ CREATE TABLE hab_guerrero (
     descripcion VARCHAR(250) NOT NULL,
     PRIMARY KEY (nombre_hg)
 );
-
+/*Hab_tanque (Nombre, descripción)*/
 CREATE TABLE hab_tanque (
     nombre_ht VARCHAR(30) UNIQUE NOT NULL,
     descripcion VARCHAR(250) NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE dragon (
         REFERENCES dragon (nombre_d)
 );
 
-/*Mago (Nombre__M, Mana,vida,nivel)*/
+/*Mago (id__m, Mana,vida,nivel)*/
 
 -- LOS ROLES SON FUERTES DE IDENTIDAD PERO NO DE EXISTENCIA Y COMO CON PERSONAJE LA RELACION ES 1:N -- 
 
@@ -156,7 +156,7 @@ CREATE TABLE tanque (
     PRIMARY KEY (id_t)
 );
 
-/*Personaje (Nombre_P,fuerza,Mail,id_m,id_g,id_t) mail es clave externa con jugador*/
+/*Personaje (Nombre_P,fuerza,Mail,id_m,id_g,id_t)*/
 
 CREATE TABLE personaje (
     nombre_p VARCHAR(30) UNIQUE NOT NULL,
@@ -176,13 +176,15 @@ CREATE TABLE personaje (
         REFERENCES tanque (id_t)
 );
 
-/*Escuadrón (ID_E#)*/
+/*Escuadrón (id_e)*/
 
 CREATE TABLE escuadron (
     id_e INTEGER UNIQUE NOT NULL,
     PRIMARY KEY (id_e)
 );
+
 /*Mago_pertenece_escuadron(id_m,id_e,fecha_inicio,fecha_fin)*/
+
 CREATE TABLE mago_pertenece_escuadron(
 id_e INTEGER UNIQUE NOT NULL,
 id_m VARCHAR(30) UNIQUE NOT NULL,
@@ -194,7 +196,9 @@ PRIMARY KEY(id_e,id_m),
 	CONSTRAINT FOREIGN KEY (id_m)
         REFERENCES mago (id_m)
 );
+
 /*guerrero_pertenece_escuadron(id_g,id_e,fecha_inicio,fecha_fin)*/
+
 CREATE TABLE guerrero_pertenece_escuadron(
 id_e INTEGER UNIQUE NOT NULL,
 id_g VARCHAR(30) UNIQUE NOT NULL,
@@ -206,7 +210,9 @@ PRIMARY KEY(id_e,id_g),
 	CONSTRAINT FOREIGN KEY (id_g)
         REFERENCES guerrero (id_g)
 );
+
 /*Tanque_pertenece_escuadron(id_t,id_e,fecha_inicio,fecha_fin)*/
+
 CREATE TABLE tanque_pertenece_escuadron(
 id_e INTEGER UNIQUE NOT NULL,
 id_t VARCHAR(30) UNIQUE NOT NULL,
@@ -220,7 +226,7 @@ PRIMARY KEY(id_e,id_t),
 );
 
     
-/*Escuadrón_vence_dragón (Nombre,ID_E#,fecha)*/
+/*Escuadrón_vence_dragón (Nombre,ID_E,fecha)*/
 
 CREATE TABLE escuadron_vence_dragon (
     nombre_d VARCHAR(30) NOT NULL,
@@ -326,17 +332,32 @@ CREATE TABLE mago_derrota_espectro (
         REFERENCES espectro (cod_me)
 );
 
+/*Forja (Nombre_F,ID_NPC,Nombre_B,Nombre_H,nombre_E)*/
+
+CREATE TABLE forja (
+    nombre_f VARCHAR(30) UNIQUE NOT NULL,
+    id_npc VARCHAR(40) NOT NULL,
+    PRIMARY KEY (nombre_f),
+    CONSTRAINT FOREIGN KEY (id_npc)
+		REFERENCES npc (id_npc)
+);
+
 /*Báculo (Nombre_B, año, peso,id_m,Nombre_P,id_m,Nombre_P)*/
+
 
 CREATE TABLE baculo (
     nombre_b VARCHAR(30) UNIQUE NOT NULL,
     anio INTEGER,
     peso INTEGER,
     id_m VARCHAR(30) NOT NULL,
+    nombre_f VARCHAR(30) NOT NULL,
     PRIMARY KEY (nombre_b),
     CONSTRAINT FOREIGN KEY (id_m)
-        REFERENCES mago (id_m)
+        REFERENCES mago (id_m),
+    CONSTRAINT FOREIGN KEY (nombre_f)
+		REFERENCES forja (nombre_f)
 );
+
 
 /*Hacha (Nombre_H, año, peso,id_t,Nombre_P,id_t,Nombre_P)*/
 CREATE TABLE hacha (
@@ -344,10 +365,14 @@ CREATE TABLE hacha (
     anio INTEGER,
     peso INTEGER,
     id_t VARCHAR(30) NOT NULL,
+    nombre_f VARCHAR(30) NOT NULL,
     PRIMARY KEY (nombre_h),
     CONSTRAINT FOREIGN KEY (id_t)
-        REFERENCES tanque (id_t)
+        REFERENCES tanque (id_t),
+    CONSTRAINT FOREIGN KEY (nombre_f)
+		REFERENCES forja (nombre_f)
 );
+
 
 /*Espada (Nombre_E, año, peso,id_g,Nombre_P,id_g,Nombre_P)*/
 
@@ -356,29 +381,14 @@ CREATE TABLE espada (
     anio INTEGER,
     peso INTEGER,
     id_g VARCHAR(30) NOT NULL,
+    nombre_f VARCHAR(30) NOT NULL,
     PRIMARY KEY (nombre_e),
     CONSTRAINT FOREIGN KEY (id_g)
-        REFERENCES guerrero (id_g)
+        REFERENCES guerrero (id_g),
+    CONSTRAINT FOREIGN KEY (nombre_f)
+		REFERENCES forja (nombre_f)
 );
 
-/*Forja (Nombre_F,ID_NPC,Nombre_B,Nombre_H,nombre_E)*/
-
-CREATE TABLE forja (
-    nombre_f VARCHAR(30) UNIQUE NOT NULL,
-    id_npc VARCHAR(40) NOT NULL,
-    nombre_b VARCHAR(30),
-    nombre_e VARCHAR(30),
-    nombre_h VARCHAR(30),
-    PRIMARY KEY (nombre_f),
-    CONSTRAINT FOREIGN KEY (id_npc)
-		REFERENCES npc (id_npc),
-	CONSTRAINT FOREIGN KEY (nombre_b)
-		REFERENCES baculo (nombre_b),
-	CONSTRAINT FOREIGN KEY (nombre_e)
-		REFERENCES espada (nombre_e),
-	CONSTRAINT FOREIGN KEY (nombre_h)
-		REFERENCES hacha (nombre_h)
-);
 
 /*Tienda_compra_Daga(id_t,Nombre_C,ID_Daga)*/
 
@@ -446,6 +456,7 @@ CREATE TABLE tanque_hace_en_forja (
         REFERENCES tanque (id_t)
 );
 
+/*personaje_compra_daga(id_daga, nombre_p)*/
 CREATE TABLE personaje_compra_daga (
     id_daga INT NOT NULL,
     nombre_p VARCHAR(30) NOT NULL,
@@ -513,26 +524,25 @@ INSERT INTO DragonesyCavernas.tienda VALUES
 ('Tienda de Swithron','Eowin','Gazegreenelven'),
 ('Tienda de Aldlas','Junyous','Huntdwarf');
 
+INSERT INTO DragonesyCavernas.forja VALUES
+('Forja de Harmek','Pepe'),
+('Forja del enano risueño','Tyrion'),
+('Forja de Tebez','Aravis');
+
 INSERT INTO DragonesyCavernas.hacha VALUES
-('Hacha de mano',2000,50,'Ahkarg'),
-('Hacha Arrojadiza',1950,30,'Mashgor'),
-('Hacha de doble Punta',2010,10,'Gim');
+('Hacha de mano',2000,50,'Ahkarg','Forja de Tebez'),
+('Hacha Arrojadiza',1950,30,'Mashgor','Forja de Tebez'),
+('Hacha de doble Punta',2010,10,'Gim','Forja del enano risueño');
 
 INSERT INTO DragonesyCavernas.baculo VALUES
-('Baculo de Madera',2000,50,'Raendan'),
-('Mensajero de Mana',1950,30,'Xadel'),
-('Raiz de Oscuridad',2010,10,'Enso');
-
+('Baculo de Madera',2000,50,'Raendan','Forja de Harmek'),
+('Mensajero de Mana',1950,30,'Xadel','Forja de Harmek'),
+('Raiz de Oscuridad',2010,10,'Enso','Forja de Harmek');
 
 INSERT INTO DragonesyCavernas.espada VALUES
-('Alfanje',2000,50,'Stanto'),
-('Espada Flamigera',1950,30,'Makwi'),
-('Bracamarte',2010,10,'Carorhall');
-
-INSERT INTO DragonesyCavernas.forja VALUES
-('Forja de Harmek','Pepe','Baculo de Madera',NULL,NULL),
-('Forja del enano risueño','Tyrion',NULL,'Alfanje','Hacha de doble punta'),
-('Forja de Tebez','Aravis',NULL,NULL,'Hacha de mano');
+('Alfanje',2000,50,'Stanto', 'Forja del enano risueño'),
+('Espada Flamigera',1950,30,'Makwi','Forja del enano risueño'),
+('Bracamarte',2010,10,'Carorhall','Forja del enano risueño');
 
 INSERT INTO DragonesyCavernas.jugador VALUES
 ('prueba0@prueba.com',12345678,'Breakfury'),
