@@ -186,7 +186,7 @@ CREATE TABLE escuadron (
 /*Mago_pertenece_escuadron(id_m,id_e,fecha_inicio,fecha_fin)*/
 
 CREATE TABLE mago_pertenece_escuadron(
-id_e INTEGER UNIQUE NOT NULL,
+id_e INTEGER NOT NULL,
 id_m VARCHAR(30) UNIQUE NOT NULL,
 fecha_inicio DATE,
 fecha_fin DATE,
@@ -200,7 +200,7 @@ PRIMARY KEY(id_e,id_m),
 /*guerrero_pertenece_escuadron(id_g,id_e,fecha_inicio,fecha_fin)*/
 
 CREATE TABLE guerrero_pertenece_escuadron(
-id_e INTEGER UNIQUE NOT NULL,
+id_e INTEGER NOT NULL,
 id_g VARCHAR(30) UNIQUE NOT NULL,
 fecha_inicio DATE,
 fecha_fin DATE,
@@ -214,7 +214,7 @@ PRIMARY KEY(id_e,id_g),
 /*Tanque_pertenece_escuadron(id_t,id_e,fecha_inicio,fecha_fin)*/
 
 CREATE TABLE tanque_pertenece_escuadron(
-id_e INTEGER UNIQUE NOT NULL,
+id_e INTEGER NOT NULL,
 id_t VARCHAR(30) UNIQUE NOT NULL,
 fecha_inicio DATE,
 fecha_fin DATE,
@@ -614,16 +614,16 @@ INSERT INTO DragonesyCavernas.escuadron VALUES
 (2);
 
 INSERT INTO DragonesyCavernas.mago_pertenece_escuadron VALUES
-(1,'Raendan','2004-08-23','2006-10-12'),
-(2,'Manddin','2006-10-23','2006-12-12');
+(1,'Raendan','2004-08-23','2021-11-28'),
+(2,'Manddin','2006-10-23','2021-11-28');
 
 INSERT INTO DragonesyCavernas.guerrero_pertenece_escuadron VALUES
-(1,'Stanto','2004-08-21','2006-10-14'),
-(2,'Makwi','2006-08-23','2006-12-12');
+(1,'Stanto','2004-08-21','2021-11-28'),
+(2,'Makwi','2006-08-23','2021-11-28');
 
 INSERT INTO DragonesyCavernas.tanque_pertenece_escuadron VALUES
-(1,'Ahkarg','2004-08-20','2006-12-20'),
-(2,'Bucksel','2006-10-21','2006-12-30');
+(1,'Ahkarg','2004-08-20','2021-11-28'),
+(2,'Bucksel','2006-10-21','2021-11-28');
 
 INSERT INTO DragonesyCavernas.escuadron_vence_dragon VALUES
 ('Dehiss',1,'2004-08-25'),

@@ -158,9 +158,6 @@ WHERE hacha.peso <= ALL (SELECT peso
 DELIMITER ;
 
  CALL vida_g();
-
-SELECT *
-FROM guerrero;
  
 -- Añade un atributo ‘ultima conexion’ a la tabla de personajes. Luego, crea un procedimiento que elimine los jugadores que no se hayan conectado en los u ́ltimos 60 dıas. Puedes usar la funci ́on DATEDIFF1 para este fin.
  
@@ -200,22 +197,10 @@ CALL eliminar_jugadores();
 
 -- a) Define un trigger para que cuando un jugador haya matado al menos 3 dragones, su vida aumente en 5.
 
-DROP TRIGGER IF EXISTS upd_life;
+DROP TRIGGER IF EXISTS Update_Life;
 
 DELIMITER $$
-CREATE TRIGGER masVida AFTER UPDATE ON mata
-FOR EACH ROW
-BEGIN
-    UPDATE personaje SET personaje.Vida = personaje.Vida + 5
-     WHERE (SELECT COUNT(NombreP)
-     FROM personaje JOIN tieneE ON personaje.NombreP = tieneE.NombreP
-                    JOIN mata ON tieneE.NombreE = mata.NombreE  -- JOIN de escuadron y escuadronVenceDragon en vez de estos joins
-                    GROUP BY personaje.NombreP) >= 3;
-END $$
-DELIMITER ;
-
-DELIMITER $$
-CREATE TRIGGER upd_life AFTER INSERT ON escuadron_vence_dragon
+CREATE TRIGGER Update_Life AFTER INSERT ON escuadron_vence_dragon
 FOR EACH ROW
 BEGIN
 	IF (SELECT COUNT(id_m)
@@ -225,17 +210,17 @@ BEGIN
 			WHERE mago_pertenece_escuadron.id_e = NEW.id_e AND escuadron_vence_dragon.fecha BETWEEN mago_pertenece_escuadron.fecha_inicio AND mago_pertenece_escuadron.fecha_fin
 			HAVING COUNT(mago_pertenece_escuadron.id_m) >= 3) THEN
 	UPDATE mago INNER JOIN mago_pertenece_escuadron on mago.id_m = mago_pertenece_escuadron.id_m
-    SET mago.vida = mago.vida + 1000
+    SET mago.vida = mago.vida + 5
     WHERE mago_pertenece_escuadron.id_e = NEW.id_e;
 	END IF;
     IF (SELECT COUNT(id_g)
 			FROM guerrero_pertenece_escuadron
-			INNER JOIN escuadron ON escuadron.id_g = guerrero_pertenece_escuadron.id_g
-			INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_g = escuadron.id_g
-			WHERE guerrero_pertenece_escuadron.id_g = NEW.id_g AND escuadron_vence_dragon.fecha BETWEEN guerrero_pertenece_escuadron.fecha_inicio AND guerrero_pertenece_escuadron.fecha_fin
+			INNER JOIN escuadron ON escuadron.id_e = guerrero_pertenece_escuadron.id_e
+			INNER JOIN escuadron_vence_dragon ON escuadron_vence_dragon.id_e = escuadron.id_e
+			WHERE guerrero_pertenece_escuadron.id_e = NEW.id_e AND escuadron_vence_dragon.fecha BETWEEN guerrero_pertenece_escuadron.fecha_inicio AND guerrero_pertenece_escuadron.fecha_fin
 			HAVING COUNT(guerrero_pertenece_escuadron.id_g) >= 3) THEN
 	UPDATE guerrero INNER JOIN guerrero_pertenece_escuadron on guerrero.id_g = guerrero_pertenece_escuadron.id_g
-    SET guerrero.vida = guerrero.vida + 1000
+    SET guerrero.vida = guerrero.vida + 5
     WHERE guerrero_pertenece_escuadron.id_e = NEW.id_e;
 	END IF;
     IF (SELECT COUNT(id_t)
@@ -245,7 +230,7 @@ BEGIN
 			WHERE tanque_pertenece_escuadron.id_e = NEW.id_e AND escuadron_vence_dragon.fecha BETWEEN tanque_pertenece_escuadron.fecha_inicio AND tanque_pertenece_escuadron.fecha_fin
 			HAVING COUNT(tanque_pertenece_escuadron.id_t) >= 3) THEN
 	UPDATE tanque INNER JOIN tanque_pertenece_escuadron on tanque.id_t = tanque_pertenece_escuadron.id_t
-    SET tanque.vida = tanque.vida + 1000
+    SET tanque.vida = tanque.vida + 5
     WHERE tanque_pertenece_escuadron.id_e = NEW.id_e;
 	END IF;
 END $$
