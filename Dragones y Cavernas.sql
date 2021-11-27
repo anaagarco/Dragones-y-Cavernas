@@ -187,7 +187,7 @@ CREATE TABLE escuadron (
 
 CREATE TABLE mago_pertenece_escuadron(
 id_e INTEGER NOT NULL,
-id_m VARCHAR(30) UNIQUE NOT NULL,
+id_m VARCHAR(30) NOT NULL,
 fecha_inicio DATE,
 fecha_fin DATE,
 PRIMARY KEY(id_e,id_m),
@@ -201,7 +201,7 @@ PRIMARY KEY(id_e,id_m),
 
 CREATE TABLE guerrero_pertenece_escuadron(
 id_e INTEGER NOT NULL,
-id_g VARCHAR(30) UNIQUE NOT NULL,
+id_g VARCHAR(30) NOT NULL,
 fecha_inicio DATE,
 fecha_fin DATE,
 PRIMARY KEY(id_e,id_g),
@@ -215,7 +215,7 @@ PRIMARY KEY(id_e,id_g),
 
 CREATE TABLE tanque_pertenece_escuadron(
 id_e INTEGER NOT NULL,
-id_t VARCHAR(30) UNIQUE NOT NULL,
+id_t VARCHAR(30) NOT NULL,
 fecha_inicio DATE,
 fecha_fin DATE,
 PRIMARY KEY(id_e,id_t),
