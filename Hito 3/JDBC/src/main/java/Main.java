@@ -6,15 +6,15 @@ import game.model.Dragon;
 public class Main {
     // @TODO: Sustituya xxxx por los parámetros de su conexión
 
-    private static final String DB_SERVER = "xxxx";
+    private static final String DB_SERVER = "127.0.0.1";
 
-    private static final int DB_PORT = xxxx;
+    private static final int DB_PORT = 3306;
 
-    private static final String DB_NAME = "xxxx";
+    private static final String DB_NAME = "DragonesyCavernas";
 
-    private static final String DB_USER = "xxxx";
+    private static final String DB_USER = "root";
 
-    private static final String DB_PASS = "xxxx";
+    private static final String DB_PASS = "";
 
     private static Connection conn;
 
@@ -34,20 +34,22 @@ public class Main {
         conn.close();
     }
 
-    // @TODO resuelva las siguientes funciones...
 
+    // @TODO resuelva las siguientes funciones...
+    //  Necesitamos dragón
     public static void nuevo_dragon(String nombre){
         // @TODO: complete este método para que cree un nuevo dragón en la base de datos
 
     }
 
+    // Necesitamos escuadron, escuadron_vence_dragon
     public static List<Dragon> squad_derrota_dragones(Long id_squad){
         // @TODO: complete este método para que devuelva una lista de los dragones derrotados por el squad
         // Tenga en cuenta que la consulta a la base de datos le devolverá un ResultSet sobre el que deberá
         // ir iterando y creando un objeto dragon para cada uno de los dragones, y añadirlos a la lista
         return lista;
     }
-
+    // Necesitamos hacha, forja
     public static List<Hacha> mostrar_hachas(String nombre_forja){
         // @TODO: complete este método para que muestre por pantalla las hachas que pueden forjarse en "nombre_forja"
         // Tenga en cuenta que la consulta a la base de datos le devolverá un ResultSet sobre el que deberá
@@ -55,6 +57,7 @@ public class Main {
         return lista;
     }
 
+    // Necesitamos espada, guerrero
     public static String espada_porta_guerrero(String nombre_guerrero){
         // @TODO: complete este método para que devuelva el nombre de la espada que porta el guerrero "nombre_guerrero"
         return "espadón";
