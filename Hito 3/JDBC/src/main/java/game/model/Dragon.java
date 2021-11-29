@@ -8,10 +8,12 @@ public class Dragon {
 
     private String name;
     private int life_points;
+    private String dragon_unlock;
 
-    public Dragon(String name, int life) {
+    public Dragon(String name, int life, String dragon_unlock) {
         this.name = name;
         this.life_points = life;
+        this.dragon_unlock = dragon_unlock;
     }
 
     public int getLife() {
@@ -20,5 +22,9 @@ public class Dragon {
 
     public String getName() {
         return this.name;
+    }
+
+    public String getDragon_unlock() {
+        return this.dragon_unlock;
     }
 }
