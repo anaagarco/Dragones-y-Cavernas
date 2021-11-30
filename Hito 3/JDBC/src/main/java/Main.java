@@ -5,8 +5,6 @@ import java.util.List;
 import game.model.Dragon;
 import game.model.Hacha;
 
-import javax.xml.transform.Result;
-
 public class Main {
     // @TODO: Sustituya xxxx por los parámetros de su conexión
 
@@ -36,7 +34,15 @@ public class Main {
 
         List<Dragon> listaDragones = squad_derrota_dragones(1L);
 
+        System.out.println("Lista de dragones derrotados por el Squad 1:");
         for (Dragon dragon : listaDragones) System.out.println(dragon.getName());
+        System.out.println();
+
+        System.out.println("Lista de Hachas que se hacen en la Forja de Tebez:");
+        List<Hacha> listaHachas = mostrar_hachas("Forja de Tebez");
+
+        for (Hacha hacha : listaHachas) System.out.println(hacha.getNombre_h());
+        System.out.println();
 
         conn.close();
     }
@@ -94,33 +100,30 @@ public class Main {
     }
 
     // Necesitamos hacha, forja
-    public static List<Hacha> mostrar_hachas(String nombre_forja) throws SQLException {
+    public static List<Hacha> mostrar_hachas(String nombre_forja) {
         // @TODO: complete este método para que muestre por pantalla las hachas que pueden forjarse en "nombre_forja"
         // Tenga en cuenta que la consulta a la base de datos le devolverá un ResultSet sobre el que deberá
         // ir iterando y creando un objeto con cada hacha disponible en esa forja, y añadirlos a la lista
+
+        Statement stmt;
         ResultSet rs;
-        List<Hacha> lista = new ArrayList<Hacha>();
+        List<Hacha> lista = new ArrayList<>();
+
+        String sql = "SELECT nombre_h FROM hacha WHERE nombre_f = " + "\"" + nombre_forja + "\"";
+
         try {
-            PreparedStatement stm = conn.prepareStatement("SELECT * FROM DragonesyCavernas.hacha " +
-                    "JOIN DragonesyCavernas.forja ON " +
-                    "hacha.nombre_f = forja.nombre_f" + " WHERE nombre_f = nombre_forja ");
-            
-            rs = stm.executeQuery();
+            stmt = conn.createStatement();
+
+            rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String nombre_h = rs.getString("nombre_h");
-                String nombre_f = rs.getString("nombre_f");
-                Hacha h = new Hacha(nombre_h, nombre_f);
-                lista.add(h);
-                System.out.println(h);
+                lista.add(new Hacha(rs.getString("nombre_h")));
             }
 
-            rs.close();
-            stm.close();
-        }
-        catch (Exception e){
-            System.out.println("Se produjo un error al leer la lista.");
-            throw new SQLException();
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println("Se produjo un error al consultar las hachas.");
+            //throw new SQLException();
         }
         return lista;
     }
