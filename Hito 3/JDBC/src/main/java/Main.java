@@ -31,6 +31,10 @@ public class Main {
 
         nuevo_dragon("Viseryon");
 
+        List<Dragon> listaDragones = squad_derrota_dragones(1L);
+
+        for (Dragon dragon : listaDragones) System.out.println(dragon.getName());
+
         conn.close();
     }
 
@@ -55,16 +59,35 @@ public class Main {
             stmt.close();
         } catch (Exception e) {
             System.out.println("Se produjo un error al insertar el dragon.");
-            throw new SQLException();
+            //throw new SQLException();
         }
     }
 
     // Necesitamos escuadron, escuadron_vence_dragon
-    public static List<Dragon> squad_derrota_dragones(Long id_squad) {
+    public static List<Dragon> squad_derrota_dragones(Long id_squad) throws SQLException {
         // @TODO: complete este método para que devuelva una lista de los dragones derrotados por el squad
         // Tenga en cuenta que la consulta a la base de datos le devolverá un ResultSet sobre el que deberá
         // ir iterando y creando un objeto dragon para cada uno de los dragones, y añadirlos a la lista
-        return null;
+
+        List<Dragon> lista = new ArrayList<>();
+        Statement stmt;
+        ResultSet rs;
+
+        try {
+            String sql = "SELECT nombre_d FROM escuadron_vence_dragon WHERE id_e = " + id_squad;
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                lista.add(new Dragon(rs.getString("nombre_d")));
+            }
+
+            stmt.close();
+        } catch (Exception e) {
+            System.out.println("Se produjo un error al consultar los dragones derrotados.");
+            //throw new SQLException();
+        }
+        return lista;
     }
 
     /*// Necesitamos hacha, forja

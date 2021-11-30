@@ -10,6 +10,12 @@ public class Dragon {
     private int life_points;
     private String dragon_unlock;
 
+    public Dragon(String name){
+        this.name = name;
+        this.life_points = 0;
+        this.dragon_unlock = null;
+    }
+
     public Dragon(String name, int life, String dragon_unlock) {
         this.name = name;
         this.life_points = life;
