@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import game.model.Dragon;
+import game.model.Espada;
 import game.model.Hacha;
 
 public class Main {
@@ -30,7 +31,7 @@ public class Main {
 
         // @TODO pruebe sus funciones
 
-        nuevo_dragon("Viseryon");
+        nuevo_dragon("Viseryon",998,null);
 
         List<Dragon> listaDragones = squad_derrota_dragones(1L);
 
@@ -44,8 +45,10 @@ public class Main {
         for (Hacha hacha : listaHachas) System.out.println(hacha.getNombre_h());
         System.out.println();
 
-        System.out.println("El guerrero Stanto porta la espada " + espada_porta_guerrero("Stanto"));
-
+        List<Espada> listaEspada = espada_porta_guerrero("Stanto");
+        System.out.println("El guerrero Stanto porta la/s espada ");
+        for (Espada espada : listaEspada) System.out.println(espada.getNombre());
+        System.out.println();
 
         conn.close();
     }
@@ -53,10 +56,10 @@ public class Main {
 
     // @TODO resuelva las siguientes funciones...
     //  Necesitamos dragón
-    public static void nuevo_dragon(String nombre) throws SQLException {
+    public static void nuevo_dragon(String nombre, int life, String unlock) throws SQLException {
         // @TODO: complete este método para que cree un nuevo dragón en la base de datos
 
-        Dragon dragon = new Dragon(nombre, 998, "Dehiss");
+        Dragon dragon = new Dragon(nombre, life, unlock);
         try {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO dragon (nombre_d, vida, nombre_d_desbloqueado) VALUES (?, ?, ?)");
 
@@ -95,6 +98,7 @@ public class Main {
             }
 
             stmt.close();
+            rs.close();
         } catch (Exception e) {
             System.out.println("Se produjo un error al consultar los dragones derrotados.");
             //throw new SQLException();
@@ -124,6 +128,7 @@ public class Main {
             }
 
             stmt.close();
+            rs.close();
         } catch (Exception e) {
             System.out.println("Se produjo un error al consultar las hachas.");
             //throw new SQLException();
@@ -131,24 +136,30 @@ public class Main {
         return lista;
     }
 
-    public static String espada_porta_guerrero(String nombre_guerrero) throws SQLException {
+    public static List<Espada> espada_porta_guerrero(String nombre_guerrero) throws SQLException {
         // @TODO: complete este método para que devuelva el nombre de la espada que porta el guerrero "nombre_guerrero"
-        String espada = new String();
+
         Statement stmt;
-        String sql = "SELECT nombre_e FROM espada WHERE id_g = " + nombre_guerrero;
+        ResultSet rs;
+        List<Espada> lista = new ArrayList<>();
+        String sql = "SELECT nombre_e FROM espada WHERE id_g = " + "\"" + nombre_guerrero + "\"";
 
         try{
             stmt = conn.createStatement();
 
-            espada = stmt.executeQuery(sql).getString("nombre_e");
+            rs = stmt.executeQuery(sql);
 
+            while (rs.next()) {
+                lista.add(new Espada(rs.getString("nombre_e")));
+            }
             stmt.close();
+            rs.close();
         } catch (Exception e){
-            System.out.println("Se produjo un error al consultar las guerreros.");
+            System.out.println("Se produjo un error al consultar los guerreros.");
             //throw new SQLException();
         }
 
-        return espada;
+        return lista;
     }
 
 }
