@@ -44,6 +44,9 @@ public class Main {
         for (Hacha hacha : listaHachas) System.out.println(hacha.getNombre_h());
         System.out.println();
 
+        System.out.println("El guerrero Stanto porta la espada " + espada_porta_guerrero("Stanto"));
+
+
         conn.close();
     }
 
@@ -128,10 +131,24 @@ public class Main {
         return lista;
     }
 
-    // Necesitamos espada, guerrero
-    public static String espada_porta_guerrero(String nombre_guerrero) {
+    public static String espada_porta_guerrero(String nombre_guerrero) throws SQLException {
         // @TODO: complete este método para que devuelva el nombre de la espada que porta el guerrero "nombre_guerrero"
-        return "espadón";
+        String espada = new String();
+        Statement stmt;
+        String sql = "SELECT nombre_e FROM espada WHERE id_g = " + nombre_guerrero;
+
+        try{
+            stmt = conn.createStatement();
+
+            espada = stmt.executeQuery(sql).getString("nombre_e");
+
+            stmt.close();
+        } catch (Exception e){
+            System.out.println("Se produjo un error al consultar las guerreros.");
+            //throw new SQLException();
+        }
+
+        return espada;
     }
 
 }

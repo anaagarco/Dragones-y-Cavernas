@@ -358,7 +358,6 @@ CREATE TABLE baculo (
 		REFERENCES forja (nombre_f)
 );
 
-
 /*Hacha (Nombre_H, año, peso,id_t,Nombre_P,id_t,Nombre_P)*/
 CREATE TABLE hacha (
     nombre_h VARCHAR(30) UNIQUE NOT NULL,
