@@ -47,7 +47,7 @@ public class Main {
 
         List<Espada> listaEspada = espada_porta_guerrero("Stanto");
         System.out.println("El guerrero Stanto porta la/s espada ");
-        for (Espada espada : listaEspada) System.out.println(espada.getNombre());
+        for (Espada espada : listaEspada) System.out.println(espada.getNombre_e());
         System.out.println();
 
         conn.close();
