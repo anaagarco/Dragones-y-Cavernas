@@ -49,6 +49,5 @@ public class Controller {
 
     public Mago createMago(String magician, Daga daga) throws SQLException {
         // @TODO complete este metodo para crear de forma presistente un mago
-
     }
 }

@@ -26,7 +26,11 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
+        <mapping class="ormRPGgame.model.Jugador"/>
+        <mapping class="ormRPGgame.model.Personaje"/>
         <mapping class="ormRPGgame.model.Mago"/>
+        <mapping class="ormRPGgame.model.Guerrero"/>
+        <mapping class="ormRPGgame.model.Tanque"/>
         <mapping class="ormRPGgame.model.Daga"/>
         <!--Añada tantas clases como entidades tenga en su modelo-->
         <!--Las clases deben crearse en el paquete "model"-->
