@@ -16,4 +16,12 @@ public class Guerrero {
     private Integer vida;
     @Column(name="nivel",nullable = false)
     private Integer nivel;
+    //Guerrero es la clase poseedora ya que guerrero posee una habilidad
+    @ManyToMany
+    @JoinTable(name="guerrero_tiene_hab_guerrero")
+    private Set<Hab_guerrero> hab_guerrero;
+    //Guerrero vencera a los goblins
+    @ManyToMany
+    @JoinTable(name="guerrero_derrota_goblin")
+    private Set<Goblin> cod_mg;
 }

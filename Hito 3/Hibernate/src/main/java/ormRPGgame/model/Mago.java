@@ -19,6 +19,14 @@ public class Mago {
     private Integer vida;
     @Column(name = "nivel", nullable = false)
     private Integer nivel;
+    //Mago es la clase poseedora ya que mago posee una habilidad
+    @ManyToMany
+    @JoinTable(name="mago_tiene_hab_mago")
+    private Set<Hab_mago> hab_mago;
+    //Mago vencera a los espectros
+    @ManyToMany
+    @JoinTable(name="mago_derrota_espectro")
+    private Set<Espectro> cod_me;
 
 
     public Mago(String nombre, Daga daga){

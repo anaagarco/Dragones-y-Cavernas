@@ -18,4 +18,12 @@ public class Tanque {
         private Integer vida;
         @Column(name="nivel",nullable = false)
         private Integer nivel;
+        //Tanque es la clase poseedora ya que tanque posee una habilidad
+        @ManyToMany
+        @JoinTable(name="tanque_tiene_hab_tanque")
+        private Set<Hab_tanque> hab_tanque;
+        //Tanque vencera a los trolls
+        @ManyToMany
+        @JoinTable(name="tanque_derrota_troll")
+        private Set<Goblin> cod_mt;
 }
