@@ -13,9 +13,10 @@ public class Dragon {
     private Integer vida;
     @Column(name="nombre_d_desbloqueado",nullable = false)
     private String nombre_d_desbloqueado;
-    @ManyToMany(mappedBy = "nombre_d")
-    private Set<Escuadron> id_e;
-    private Dragon nombre_d_desbloqueado;
+    //FALTA REVISAR
+    @OneToMany(mappedBy = "nombre_d")
+    private Set<Escuadron_vence_dragon> id_e;
+
 
 
 }

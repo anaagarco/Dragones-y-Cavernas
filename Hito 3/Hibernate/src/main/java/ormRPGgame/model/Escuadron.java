@@ -18,11 +18,8 @@ public class Escuadron {
     private Set<Guerrero> id_g;
     @ManyToMany(mappedBy = "id_e")
     private Set<Tanque> id_t;
-    //Poseedora de relacion vence con dragon
-    @Column(name="fecha")
-    private Date fecha;
-    @ManyToMany
-    @JoinTable(name="escuadron_vence_dragon")
-    private Set<Dragon> nombre_d;
+    //FALTA REVISAR
+    @OneToMany(mappedBy = "id_e")
+    private Set<Escuadron_vence_dragon> nombre_d;
 
 }
