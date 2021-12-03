@@ -27,6 +27,9 @@ public class Mago {
     @ManyToMany
     @JoinTable(name="mago_derrota_espectro")
     private Set<Espectro> cod_me;
+    @ManyToMany
+    @JoinTable(name="mago_pertenece_escuadron")
+    private Set<Escuadron> id_e;
 
 
     public Mago(String nombre, Daga daga){

@@ -24,4 +24,7 @@ public class Guerrero {
     @ManyToMany
     @JoinTable(name="guerrero_derrota_goblin")
     private Set<Goblin> cod_mg;
+    @ManyToMany
+    @JoinTable(name="guerrero_pertenece_escuadron")
+    private Set<Escuadron> id_e;
 }

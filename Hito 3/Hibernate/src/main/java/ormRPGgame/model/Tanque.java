@@ -26,4 +26,7 @@ public class Tanque {
         @ManyToMany
         @JoinTable(name="tanque_derrota_troll")
         private Set<Goblin> cod_mt;
+        @ManyToMany
+        @JoinTable(name="tanque_pertenece_escuadron")
+        private Set<Escuadron> id_e;
 }
