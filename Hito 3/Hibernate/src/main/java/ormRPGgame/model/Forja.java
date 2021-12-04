@@ -1,6 +1,7 @@
 package ormRPGgame.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity
@@ -11,6 +12,8 @@ public class Forja {
     private String nombre_f;
     @Column(name="id_npc",nullable = false)
     private Npc id_npc;
+    @ManyToMany(mappedBy ="forjas" )
+    private Set<Ciudad> ciudades;
 
 
 }

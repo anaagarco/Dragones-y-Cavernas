@@ -12,14 +12,14 @@ public class Escuadron {
     //por ser un numero deberia ponerla de long
     private long id_e;
     //No poseedora
-    @ManyToMany(mappedBy = "id_e")
-    private Set<Mago> id_m;
-    @ManyToMany(mappedBy = "id_e")
-    private Set<Guerrero> id_g;
-    @ManyToMany(mappedBy = "id_e")
-    private Set<Tanque> id_t;
+    @OneToMany(mappedBy = "id_m")
+    private Set<Mago_pertenece_escuadron> id_m;
+    @OneToMany(mappedBy = "id_g")
+    private Set<Guerrero_pertenece_escuadron> id_g;
+    @OneToMany(mappedBy = "id_t")
+    private Set<Tanque_pertenece_escuadron> id_t;
     //FALTA REVISAR
     @OneToMany(mappedBy = "id_e")
-    private Set<Escuadron_vence_dragon> nombre_d;
+    private Set<Escuadron_vence_dragon> dragonesE;
 
 }

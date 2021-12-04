@@ -15,7 +15,7 @@ public class Dragon {
     private String nombre_d_desbloqueado;
     //FALTA REVISAR
     @OneToMany(mappedBy = "nombre_d")
-    private Set<Escuadron_vence_dragon> id_e;
+    private Set<Escuadron_vence_dragon> dragonesD;
 
 
 

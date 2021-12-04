@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="ormRPGgame.model.Guerrero")
+@Table(name="guerrero")
 public class Guerrero {
     @Id
     @Column(name="id_g",nullable = false)
@@ -24,7 +24,7 @@ public class Guerrero {
     @ManyToMany
     @JoinTable(name="guerrero_derrota_goblin")
     private Set<Goblin> cod_mg;
-    @ManyToMany
-    @JoinTable(name="guerrero_pertenece_escuadron")
-    private Set<Escuadron> id_e;
+    //Rol pertenece a escuadron
+    @OneToMany (mappedBy="id_g")
+    private Set<Guerrero_pertenece_escuadron> id_gp;
 }

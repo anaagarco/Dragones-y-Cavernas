@@ -6,7 +6,7 @@ import java.util.Set;
 
 // @TODO completar las anotaciones de la clase
 @Entity
-@Table(name="Mago")
+@Table(name="mago")
 public class Mago {
     // @TODO completar las anotaciones de todos los atributos
     @Id
@@ -27,9 +27,9 @@ public class Mago {
     @ManyToMany
     @JoinTable(name="mago_derrota_espectro")
     private Set<Espectro> cod_me;
-    @ManyToMany
-    @JoinTable(name="mago_pertenece_escuadron")
-    private Set<Escuadron> id_e;
+    //Rol pertenece a escuadron
+    @OneToMany (mappedBy="id_m")
+    private Set<Mago_pertenece_escuadron> id_mp;
 
 
     public Mago(String nombre, Daga daga){
