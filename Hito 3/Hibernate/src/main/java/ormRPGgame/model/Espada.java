@@ -12,6 +12,7 @@ public class Espada {
     private Integer anio;
     @Column(name="peso")
     private Integer peso;
+    //Guerrero almacena espada
     @ManyToOne(optional = false)
     @JoinColumn(name="id_g")
     private Guerrero id_g;

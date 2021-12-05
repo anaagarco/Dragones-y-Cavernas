@@ -40,12 +40,23 @@
         <mapping class="ormRPGgame.model.Hacha"/>
         <mapping class="ormRPGgame.model.Hab_tanque"/>
         <mapping class="ormRPGgame.model.Troll"/>
+        <mapping class="ormRPGgame.model.Dragon"/>
         <mapping class="ormRPGgame.model.Escuadron"/>
         <mapping class="ormRPGgame.model.Mago_pertenece_escuadron"/>
         <mapping class="ormRPGgame.model.Guerrero_pertenece_escuadron"/>
         <mapping class="ormRPGgame.model.Tanque_pertenece_escuadron"/>
         <mapping class="ormRPGgame.model.Escuadron_vence_dragon"/>
         <mapping class="ormRPGgame.model.Daga"/>
+        <mapping class="ormRPGgame.model.Zona"/>
+        <mapping class="ormRPGgame.model.Ciudad"/>
+        <mapping class="ormRPGgame.model.Tienda"/>
+        <mapping class="ormRPGgame.model.Npc"/>
+        <mapping class="ormRPGgame.model.Pocion"/>
+        <mapping class="ormRPGgame.model.Personaje_entrega_npc_pocion"/>
+        <mapping class="ormRPGgame.model.Forja"/>
+        <mapping class="ormRPGgame.model.Mago_crea_en_forja"/>
+        <mapping class="ormRPGgame.model.Guerrero_crea_en_forja"/>
+        <mapping class="ormRPGgame.model.Tanque_crea_en_forja"/>
         <!--Añada tantas clases como entidades tenga en su modelo-->
         <!--Las clases deben crearse en el paquete "model"-->
     </session-factory>

@@ -3,7 +3,7 @@ package ormRPGgame.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="Baculo")
+@Table(name="baculo")
 public class Baculo {
     @Id
     @Column(name="nombre_b",nullable = false)
@@ -12,6 +12,7 @@ public class Baculo {
     private Integer anio;
     @Column(name="peso")
     private Integer peso;
+    //Mago almacena espada
     @ManyToOne(optional = false)
     @JoinColumn(name="id_m")
     private Mago id_m;

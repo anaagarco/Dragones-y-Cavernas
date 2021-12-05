@@ -10,15 +10,20 @@ import java.util.Set;
 public class Mago {
     // @TODO completar las anotaciones de todos los atributos
     @Id
-    @Column(name = "id_g", nullable = false)
-    @OneToMany(mappedBy = "id_g")
-    private String id_g;//pongo set para representar que personaje es el many
+    @Column(name = "id_m", nullable = false)
+    private String id_m;
     @Column(name = "mana", nullable = false)
     private Integer mana;
     @Column(name = "vida", nullable = false)
     private Integer vida;
     @Column(name = "nivel", nullable = false)
     private Integer nivel;
+    //Mago almacena  Y porta baculo
+    @OneToMany(mappedBy = "id_m")
+    private Set<Baculo> baculos;
+    //Mago crea en forja
+    @OneToMany (mappedBy="id_m")
+    private Set<Mago_crea_en_forja> magos;
     //Mago es la clase poseedora ya que mago posee una habilidad
     @ManyToMany
     @JoinTable(name="mago_tiene_hab_mago")
@@ -38,5 +43,5 @@ public class Mago {
         //  Inicialice el resto de atributos a los valores que considere oportunos
     }
 
-    public String getnombre(){ return this.id_g;}
+    public String getnombre(){ return this.id_m;}
 }

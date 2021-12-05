@@ -12,6 +12,7 @@ public class Hacha {
     private Integer anio;
     @Column(name="peso")
     private Integer peso;
+    //Tanque almacena hacha
     @ManyToOne(optional = false)
     @JoinColumn(name="id_t")
     private Tanque id_t;

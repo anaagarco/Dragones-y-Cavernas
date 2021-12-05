@@ -10,7 +10,6 @@ import java.util.Set;
 public class Tanque {
         @Id
         @Column(name="id_t",nullable = false)
-        @OneToMany(mappedBy = "id_t")
         private String id_t;
         @Column(name="mana",nullable = false)
         private Integer mana;
@@ -18,6 +17,12 @@ public class Tanque {
         private Integer vida;
         @Column(name="nivel",nullable = false)
         private Integer nivel;
+        //Tanque almacena y porta hacha
+        @OneToMany(mappedBy = "id_t")
+        private Set<Hacha> hachas;
+        //Tanque crea en forja
+        @OneToMany (mappedBy="id_t")
+        private Set<Tanque_crea_en_forja> tanques;
         //Tanque es la clase poseedora ya que tanque posee una habilidad
         @ManyToMany
         @JoinTable(name="tanque_tiene_hab_tanque")
