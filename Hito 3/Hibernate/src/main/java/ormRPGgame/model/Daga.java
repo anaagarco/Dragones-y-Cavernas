@@ -18,7 +18,7 @@ import java.util.Set;
         //Daga se compra en tienda
         @ManyToMany(mappedBy="id_daga")
         private Set<Tienda> nombre_t;
-        //falta 1:1
+
 
     public Daga(Long nombre){
         // @TODO completar el constructor de la clase.
