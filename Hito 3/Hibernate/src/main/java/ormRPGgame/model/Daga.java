@@ -15,14 +15,14 @@ import java.util.Set;
         private Integer tipo;
         //Personaje tiene daga
         private Personaje nombre_p;
-        //
+        //Daga se compra en tienda
         @ManyToMany(mappedBy="id_daga")
         private Set<Tienda> nombre_t;
         //falta 1:1
 
-    public Daga(String nombre){
+    public Daga(Long nombre){
         // @TODO completar el constructor de la clase.
     }
 
-    public String getnombre(){ return this.id_daga;}
+    public Long getnombre(){ return this.id_daga;}
 }

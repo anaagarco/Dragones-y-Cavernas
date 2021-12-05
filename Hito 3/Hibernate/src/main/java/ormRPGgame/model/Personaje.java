@@ -3,9 +3,10 @@ package ormRPGgame.model;
 import ormRPGgame.model.Guerrero;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(name="ormRPGgame.model.Personaje")
+@Table(name="personaje")
 public class Personaje {
     @Id
     @Column(name="nombre_p",nullable = false)
@@ -13,8 +14,10 @@ public class Personaje {
     @Column(name="fuerza",nullable = false)
     private Integer fuerza;
     @ManyToOne(optional=false)
+    //Jugador crea personaje
     @JoinColumn(name="mail")
     private Jugador mail;
+    //Personaje es un rol
     @ManyToOne(optional=false)
     @JoinColumn(name="id_m")
     private Mago id_m;
@@ -24,6 +27,9 @@ public class Personaje {
     @ManyToOne(optional=false)
     @JoinColumn(name="id_t")
     private Tanque id_t;
+    //Persona entrega npc pocion
+    @OneToMany(mappedBy = "nombre_p")
+    private Set<Personaje_entrega_npc_pocion> personajes;
 
 
 }

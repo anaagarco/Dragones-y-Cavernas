@@ -12,6 +12,7 @@ public class Pocion {
     private String tipo;
     @Column(name="valores_regeneracion")
     private Integer valores_regeneracion;
-    @ManyToMany(mappedBy="cod_p")
-    private Set<Personaje> nombre_p;
+    //Persona entrega npc pocion
+    @OneToMany(mappedBy = "cod_p")
+    private Set<Personaje_entrega_npc_pocion> pocions;
 }

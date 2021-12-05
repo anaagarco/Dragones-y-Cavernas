@@ -13,4 +13,7 @@ public class Npc {
     //NPC trabaja en tienda
     @ManyToMany(mappedBy = "npcs")
     private Set<Tienda> tiendas;
+    //Persona entrega npc pocion
+    @OneToMany(mappedBy = "id_npc")
+    private Set<Personaje_entrega_npc_pocion> npcs;
 }
