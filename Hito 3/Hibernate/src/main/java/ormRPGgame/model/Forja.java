@@ -12,6 +12,7 @@ public class Forja {
     private String nombre_f;
     @Column(name="id_npc",nullable = false)
     private Npc id_npc;
+    //Forja se encuentra en ciudad
     @ManyToMany(mappedBy ="forjas" )
     private Set<Ciudad> ciudades;
 

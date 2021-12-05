@@ -11,8 +11,12 @@ public class Ciudad {
     @ManyToOne(optional = false)
     @JoinColumn(name="id_zona")
     private Zona id_zonac;
+    //Forja se encuentra en ciudad
     @ManyToMany()
     @JoinTable(name="forja_se_encuentra_ciudad")
     private Set<Forja> forjas;
+    //Tienda se encuentra en ciudad
+    @OneToMany(mappedBy = "nombre_c")
+    private Set<Tienda> tiendas;
 }
 
