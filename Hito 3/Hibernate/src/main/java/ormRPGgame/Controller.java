@@ -42,12 +42,22 @@ public class Controller {
      * @return el nuevo usuario creado
      * @throws SQLException
      */
-    public Daga createDaga(String nombre) throws SQLException{
+    public Daga createDaga(Integer id_daga, String tipo) throws SQLException{
         // @TODO complete este metodo para crear de forma presistente una daga
-
+    Daga daga= new Daga(id_daga,tipo);
+        session.beginTransaction();
+        session.saveOrUpdate(daga);
+        session.getTransaction().commit();
+        return daga;
     }
 
-    public Mago createMago(String magician, Daga daga) throws SQLException {
+    public Mago createMago(Integer id_m, Integer mana,Integer vida,Integer nivel) throws SQLException {
         // @TODO complete este metodo para crear de forma presistente un mago
+        Mago mago= new Mago(id_m,mana,vida,nivel);
+        session.beginTransaction();
+        session.saveOrUpdate(mago);
+        session.getTransaction().commit();
+        return mago;
     }
+
 }

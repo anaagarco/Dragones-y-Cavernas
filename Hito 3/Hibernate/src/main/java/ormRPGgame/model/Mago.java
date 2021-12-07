@@ -37,11 +37,26 @@ public class Mago {
     private Set<Mago_pertenece_escuadron> id_mp;
 
 
-    public Mago(String nombre, Daga daga){
-        // @TODO completar el constructor de la clase.
-        //  Para ello es necesario un string con el nombre del mago y un objeto de la clase daga
-        //  Inicialice el resto de atributos a los valores que considere oportunos
+    public Mago(String id_m, Integer mana, Integer vida, Integer nivel) {
+        this.id_m = id_m;
+        this.mana = mana;
+        this.vida = vida;
+        this.nivel = nivel;
     }
 
-    public String getnombre(){ return this.id_m;}
+    public String getId_m() {
+        return id_m;
+    }
+
+    public Integer getMana() {
+        return mana;
+    }
+
+    public Integer getVida() {
+        return vida;
+    }
+
+    public Integer getNivel() {
+        return nivel;
+    }
 }

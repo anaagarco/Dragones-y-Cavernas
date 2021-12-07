@@ -19,10 +19,17 @@ import java.util.Set;
         @ManyToMany(mappedBy="id_daga")
         private Set<Tienda> nombre_t;
 
-
-    public Daga(Long nombre){
-        // @TODO completar el constructor de la clase.
+    public Daga(Long id_daga, Integer tipo) {
+        this.id_daga = id_daga;
+        this.tipo = tipo;
     }
 
     public Long getnombre(){ return this.id_daga;}
 }
+    public Long getId_daga() {
+        return id_daga;
+    }
+
+    public Integer getTipo() {
+        return tipo;
+    }

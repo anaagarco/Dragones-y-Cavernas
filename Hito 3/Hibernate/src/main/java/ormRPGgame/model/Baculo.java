@@ -8,11 +8,11 @@ public class Baculo {
     @Id
     @Column(name="nombre_b",nullable = false)
     private String nombre_b;
-    @Column(name="anio")
-    private Integer anio;
+    @Column(name="danio")
+    private Integer danio;
     @Column(name="peso")
     private Integer peso;
-    //Mago almacena espada
+    //Mago almacena baculo
     @ManyToOne(optional = false)
     @JoinColumn(name="id_m")
     private Mago id_m;
