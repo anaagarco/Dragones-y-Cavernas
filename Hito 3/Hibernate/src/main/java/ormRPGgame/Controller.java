@@ -40,9 +40,8 @@ public class Controller {
      * Crea un nuevo mago
      * param nickname nombre de usuario
      * @return el nuevo usuario creado
-     * @throws SQLException
      */
-    public Daga createDaga(Integer id_daga, String tipo) throws SQLException{
+    public Daga createDaga(Long id_daga, String tipo){
         // @TODO complete este metodo para crear de forma presistente una daga
     Daga daga= new Daga(id_daga,tipo);
         session.beginTransaction();
@@ -51,7 +50,7 @@ public class Controller {
         return daga;
     }
 
-    public Mago createMago(Integer id_m, Integer mana,Integer vida,Integer nivel) throws SQLException {
+    public Mago createMago(String id_m, Integer mana,Integer vida,Integer nivel){
         // @TODO complete este metodo para crear de forma presistente un mago
         Mago mago= new Mago(id_m,mana,vida,nivel);
         session.beginTransaction();

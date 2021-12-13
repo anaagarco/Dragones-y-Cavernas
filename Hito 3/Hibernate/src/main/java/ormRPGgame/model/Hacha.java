@@ -1,6 +1,7 @@
 package ormRPGgame.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="hacha")
@@ -16,8 +17,8 @@ public class Hacha {
     @ManyToOne(optional = false)
     @JoinColumn(name="id_t")
     private Tanque id_t;
-    @ManyToMany(mappedBy = "nombre_f")
-    private Forja nombre_f;
+    @OneToMany(mappedBy = "nombre_f")
+    private Set<Forja> nombre_f;
 
 
 }

@@ -1,6 +1,7 @@
 package ormRPGgame.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="espada")
@@ -17,7 +18,7 @@ public class Espada {
     @JoinColumn(name="id_g")
     private Guerrero id_g;
     @OneToMany(mappedBy = "nombre_f")
-    private Forja nombre_f;
+    private Set<Forja> nombre_f;
 
 
 }

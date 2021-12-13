@@ -14,15 +14,15 @@
     <session-factory>
         <!--Termine de completar la configuración con la base de datos-->
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/****</property> //MIRAR ESO
+        <property name="connection.url">jdbc:mysql://localhost:3306/DragonesyCavernas</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password"></property>
 
         <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
         <property name="connection.pool_size">10</property>
         <property name="hibernate.current_session_context_class">thread</property>
-        <property name="show_sql">false</property>
+        <property name="show_sql">true</property>
 
 
         <property name="hibernate.hbm2ddl.auto">validate</property>
@@ -40,7 +40,7 @@
         <mapping class="ormRPGgame.model.Tanque"/>
         <mapping class="ormRPGgame.model.Hacha"/>
         <mapping class="ormRPGgame.model.Hab_tanque"/>
-        <mapping class="ormRPGgame.model.Troll"/>
+        <mapping class="ormRPGgame.model.Trol"/>
         <mapping class="ormRPGgame.model.Dragon"/>
         <mapping class="ormRPGgame.model.Escuadron"/>
         <mapping class="ormRPGgame.model.Mago_pertenece_escuadron"/>

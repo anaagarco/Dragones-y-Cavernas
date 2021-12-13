@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="troll")
-public class Troll {
+@Table(name="trol")
+public class Trol {
     @Id
     @Column(name="cod_mt",nullable = false)
     private String cod_mt;

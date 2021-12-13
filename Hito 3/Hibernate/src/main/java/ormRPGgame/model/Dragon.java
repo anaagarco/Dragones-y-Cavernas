@@ -12,10 +12,11 @@ public class Dragon {
     @Column(name="vida",nullable = false)
     private Integer vida;
     @Column(name="nombre_d_desbloqueado",nullable = false)
-    private String nombre_d_desbloqueado;
+    private Dragon  nombre_d_desbloqueado;
     //FALTA REVISAR
     @OneToMany(mappedBy = "nombre_d")
     private Set<Escuadron_vence_dragon> dragonesD;
+
 
 
 

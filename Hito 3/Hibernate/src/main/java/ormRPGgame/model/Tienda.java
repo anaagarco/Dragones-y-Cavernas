@@ -9,7 +9,7 @@ public class Tienda {
     @Column(name="nombre_t")
     private String nombre_t;
     //Ciudad hay tienda
-    @Column(name="nombre_c")
+   // @Column(name="nombre_c")
     @ManyToOne(optional = false,cascade = CascadeType.ALL)
     @JoinColumn(name="nombre_c")
     private Ciudad nombre_c;

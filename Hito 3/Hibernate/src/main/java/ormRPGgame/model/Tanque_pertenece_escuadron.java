@@ -7,12 +7,12 @@ import java.util.*;
 @Table(name="Tanque_pertenece_escuadron")
 public class Tanque_pertenece_escuadron {
     @Id
-    @Column(name = "id_e",nullable = false)
+    //@Column(name = "id_e",nullable = false)
     @ManyToOne(optional = false)
     @JoinColumn(name="id_e")
     private Escuadron id_e;
     @Id
-    @Column(name="id_t",nullable = false)
+   // @Column(name="id_t",nullable = false)
     @ManyToOne(optional = false)
     @JoinColumn(name="id_t")
     private Tanque id_t;

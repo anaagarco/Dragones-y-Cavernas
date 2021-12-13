@@ -1,7 +1,5 @@
 package ormRPGgame.model;
 
-import ormRPGgame.model.Personaje;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -29,7 +27,7 @@ public class Tanque {
         private Set<Hab_tanque> hab_tanque;
         //Tanque vencera a los trolls
         @ManyToMany
-        @JoinTable(name="tanque_derrota_troll")
+        @JoinTable(name="tanque_derrota_trol")
         private Set<Goblin> cod_mt;
         //Rol pertenece a escuadron
         @OneToMany(mappedBy = "id_t")

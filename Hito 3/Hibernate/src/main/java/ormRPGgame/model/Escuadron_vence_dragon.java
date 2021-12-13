@@ -7,9 +7,11 @@ import java.util.*;
 public class Escuadron_vence_dragon {
     @Column(name="fecha")
     private Date fecha;
+    @Id
     @ManyToOne(optional = false)
     @JoinColumn(name ="id_e" )
     private Escuadron id_e;
+    @Id
     @ManyToOne(optional = false)
     @JoinColumn(name ="nombre_d" )
     private Dragon nombre_d;
