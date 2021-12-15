@@ -11,7 +11,8 @@ public class Dragon {
     private String nombre_d;
     @Column(name="vida",nullable = false)
     private Integer vida;
-    @Column(name="nombre_d_desbloqueado",nullable = false)
+    //@Column(name="nombre_d_desbloqueado",nullable = false)
+    @OneToOne
     private Dragon  nombre_d_desbloqueado;
     //FALTA REVISAR
     @OneToMany(mappedBy = "nombre_d")

@@ -1,12 +1,9 @@
 package ormRPGgame.model;
-
-import ormRPGgame.model.Personaje;
-
 import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="ormRPGgame.model.Jugador")
+@Table(name="jugador")
 public class Jugador{
     @Id
     @Column(name="mail",nullable = false)

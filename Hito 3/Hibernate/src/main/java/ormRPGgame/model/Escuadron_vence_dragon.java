@@ -1,10 +1,11 @@
 package ormRPGgame.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 @Entity
 @Table(name="escuadron_vence_dragon")
-public class Escuadron_vence_dragon {
+public class Escuadron_vence_dragon implements Serializable {
     @Column(name="fecha")
     private Date fecha;
     @Id

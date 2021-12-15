@@ -31,5 +31,7 @@ public class Personaje {
     @OneToMany(mappedBy = "nombre_p")
     private Set<Personaje_entrega_npc_pocion> personajes;
 
-
+    public String getNombre_p() {
+        return nombre_p;
+    }
 }

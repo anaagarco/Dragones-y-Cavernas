@@ -6,7 +6,7 @@ import java.util.Set;
 @Table(name="npc")
 public class Npc {
     @Id
-    @Column(name="ID_NPC")
+    @Column(name="id_npc")
     private String id_npc;
     @Column(name="tipo",nullable = false)
     private String tipo;

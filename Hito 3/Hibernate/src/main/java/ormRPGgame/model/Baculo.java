@@ -9,8 +9,8 @@ public class Baculo {
     @Id
     @Column(name="nombre_b",nullable = false)
     private String nombre_b;
-    @Column(name="danio")
-    private Integer danio;
+    @Column(name="anio")
+    private Integer anio;
     @Column(name="peso")
     private Integer peso;
     //Mago almacena baculo

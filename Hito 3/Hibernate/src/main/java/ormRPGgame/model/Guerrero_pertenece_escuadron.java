@@ -1,11 +1,12 @@
 package ormRPGgame.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.*;
 
 @Entity
 @Table(name="guerrero_pertenece_escuadron")
-public class Guerrero_pertenece_escuadron {
+public class Guerrero_pertenece_escuadron implements Serializable {
     @Id
     //@Column(name = "id_e",nullable = false)
     @ManyToOne(optional = false)

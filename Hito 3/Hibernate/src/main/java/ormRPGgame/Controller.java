@@ -1,7 +1,6 @@
 package ormRPGgame;
 
-import ormRPGgame.model.Mago;
-import ormRPGgame.model.Daga;
+import ormRPGgame.model.*;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -41,9 +40,9 @@ public class Controller {
      * param nickname nombre de usuario
      * @return el nuevo usuario creado
      */
-    public Daga createDaga(Long id_daga, String tipo){
+    public Daga createDagaMago(Long id_daga, String tipo, Mago mago){
         // @TODO complete este metodo para crear de forma presistente una daga
-    Daga daga= new Daga(id_daga,tipo);
+    Daga daga= new Daga(id_daga,tipo,mago);
         session.beginTransaction();
         session.saveOrUpdate(daga);
         session.getTransaction().commit();
@@ -52,7 +51,7 @@ public class Controller {
 
     public Mago createMago(String id_m, Integer mana,Integer vida,Integer nivel){
         // @TODO complete este metodo para crear de forma presistente un mago
-        Mago mago= new Mago(id_m,mana,vida,nivel);
+        Mago mago=new Mago(id_m,mana,vida,nivel);
         session.beginTransaction();
         session.saveOrUpdate(mago);
         session.getTransaction().commit();

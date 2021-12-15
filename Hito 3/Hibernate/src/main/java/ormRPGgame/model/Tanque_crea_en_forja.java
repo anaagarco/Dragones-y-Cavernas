@@ -1,10 +1,11 @@
 package ormRPGgame.model;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name="tanque_crea_en_forja")
-public class Tanque_crea_en_forja {
+public class Tanque_crea_en_forja implements Serializable {
     @Id
     @ManyToOne(optional = false)
     @JoinColumn(name="id_t")
