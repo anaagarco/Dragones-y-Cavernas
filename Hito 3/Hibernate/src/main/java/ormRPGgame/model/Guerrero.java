@@ -32,4 +32,6 @@ public class Guerrero {
     //Rol pertenece a escuadron
     @OneToMany (mappedBy="id_g")
     private Set<Guerrero_pertenece_escuadron> id_gp;
+    @OneToOne(mappedBy = "guerrero")
+    private Daga daga;
 }

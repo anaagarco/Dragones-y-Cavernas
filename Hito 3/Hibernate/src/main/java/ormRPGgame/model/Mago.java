@@ -35,6 +35,8 @@ public class Mago {
     //Rol pertenece a escuadron
     @OneToMany (mappedBy="id_m")
     private Set<Mago_pertenece_escuadron> id_mp;
+    @OneToOne(mappedBy = "mago")
+    private Daga daga;
 
 
     public Mago(String id_m, Integer mana, Integer vida, Integer nivel) {

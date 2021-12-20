@@ -32,4 +32,6 @@ public class Tanque {
         //Rol pertenece a escuadron
         @OneToMany(mappedBy = "id_t")
         private Set<Tanque_pertenece_escuadron> id_tp;
+        @OneToOne(mappedBy = "tanque")
+        private Daga daga;
 }

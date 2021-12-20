@@ -9,7 +9,7 @@ import game.model.Hacha;
 public class Main {
     // @TODO: Sustituya xxxx por los parámetros de su conexión
 
-    private static final String DB_SERVER = "127.0.0.1";
+    private static final String DB_SERVER = "malebo.ddns.net";
 
     private static final int DB_PORT = 3306;
 
